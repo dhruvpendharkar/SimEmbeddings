@@ -2,7 +2,7 @@
 # Model Configuration: LLaMA-3 8B
 ###
 
-base_model: NousResearch/Meta-Llama-3-8B
+base_model: openai-community/gpt2
 sequence_len: 4096
 
 # base model weight quantization
