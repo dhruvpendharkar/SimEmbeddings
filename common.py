@@ -1,7 +1,7 @@
 from pathlib import Path
 from modal import Image, Stub, Volume
 
-BASE_MODEL = "mistralai/Mistral-7B-v0.1"
+BASE_MODEL = "openai-community/gpt2"
 MODEL_PATH = Path("/model")
 
 # Baking the pretrained model weights and tokenizer into our container image, so we don't need to re-download them every time. 
@@ -43,7 +43,6 @@ image = (
         "datasets==2.14.6",
         "scipy==1.11.3",
         "wandb==0.15.12",
-        "py7zr",  # needed for samsum dataset
     )
     .pip_install(
         "torch==2.0.1+cu118", index_url="https://download.pytorch.org/whl/cu118"
@@ -51,7 +50,7 @@ image = (
     .run_function(download_model)
 )
 
-stub = Stub(name="example-mistral-7b-finetune", image=image)
+stub = Stub(name="gpt2-baseline-finetuning", image=image)
 
 # Setting up persisting Volumes to store our training data and finetuning results across runs
 stub.training_data_volume = Volume.persisted("training-data-vol")
